@@ -17,15 +17,24 @@ public class task02CssSelectorPractice {
         // why i out . instead of space because it is 2 class names btn and btn-primary
         //in this case we will find all buttons that have class="btn btn-primary
         //[class='btn btn-primary'] we can use with braclet as well
+        //.meansclassname
+        //#means id
         List<WebElement>buttonlists = driver.findElements ( By.cssSelector(".btn.btn-primary") );
         //loop through all the buttons
         for (WebElement elementbutton :buttonlists){
             //click on every button one by one
             elementbutton.click ();
             BrowserUtils.wait ( 1 );
-            //
+            //get the meassege after click
+            WebElement message= driver.findElement ( By.cssSelector ("#result"  ) );
+            System.out.println (message.getText ());
+
         }
-        driver.close ();
+            WebElement header = driver.findElement ( By.cssSelector ( ".container>h3" ) );
+            System.out.println (header.getText ());
+        WebElement paragraph = driver.findElement ( By.cssSelector ( ".container>p" ) );
+        System.out.println (paragraph.getText ());
+        driver.quit ();
 
 
 
