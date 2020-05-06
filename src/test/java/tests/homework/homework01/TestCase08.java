@@ -4,7 +4,6 @@ Step 1. Go to https://practice- cybertekschool.herokuapp.com
 Step 2. Click on “Registration Form”
 Step 3. Enter “5711234354” into phone number input box.
 Step 4. Verify that warning message is displayed: “Phone format is not correct”
-
  */
 
 import io.github.bonigarcia.wdm.WebDriverManager;
