@@ -2,6 +2,7 @@ package tests.day01;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
+import utils.BrowserFactory;
 
 public class MyFirstSeleniumScript {
     public static void main (String[] args) {
@@ -25,6 +26,7 @@ public class MyFirstSeleniumScript {
         }
         else System.out.println ("Test Failed");
     chromeDriver.close ();
+
 
 
     }

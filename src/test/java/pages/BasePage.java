@@ -42,7 +42,7 @@ public class BasePage {
 
     }
     public void waitUntilLoaderMaskDisappear() {
-        WebDriverWait wait = new WebDriverWait(Driver.get(), 10);
+        WebDriverWait wait = new WebDriverWait(Driver.get(), 20);
         try {
             wait.until( ExpectedConditions.invisibilityOf ( loadermask ) );
 
@@ -72,7 +72,7 @@ public class BasePage {
         String menuLocator = "//*[normalize-space()='" + menu + "' and @class='title title-level-1']";
         String submenuLocator = "//*[normalize-space()='" + submenu + "' and @class='title title-level-2']";
 
-        WebDriverWait wait = new WebDriverWait ( Driver.get (), 3 );
+        WebDriverWait wait = new WebDriverWait ( Driver.get (), 20 );
         wait.until ( ExpectedConditions.presenceOfElementLocated ( By.xpath ( menuLocator ) ) );
 
         WebElement menuElement = Driver.get ().findElement ( By.xpath ( menuLocator ) );
@@ -93,19 +93,6 @@ public class BasePage {
     Waits until loader mask (Loading bar,spinning wheel) disapears
     @return true if loader mask is gone, false if someting went wrong
      */
-
-
-
-    public void waitUntilLoaderScreenDisappear ( ) {
-        try {
-            WebDriverWait wait = new WebDriverWait ( Driver.get (), 5 );
-            wait.until ( ExpectedConditions.invisibilityOf ( loadermask ) );
-        } catch (Exception e) {
-            e.printStackTrace ();
-        }
-
-    }
-
 
     public String getSubtitle ( ) {
         //any time we are verfiying page name or page subtitle, loader mask appears

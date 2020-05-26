@@ -17,15 +17,16 @@ import utils.Driver;
 public class LoginTests extends TestBase {
     @Test(description = "Verify that page title is a Dashboard")
     public void test1 ( ) {
+        extentTest = extentReports.createTest ("Verify that page title is a Dashboard"  );
         //Create a page object
         LoginPage loginPage = new LoginPage ();
 
         //WE got the username and passwor from configuration class
         String userName = ConfigurationReader.getProperty ( "user_name" );
-        String passwod = ConfigurationReader.getProperty ( "password" );
+        String passwoRd = ConfigurationReader.getProperty ( "password" );
 
         //We used login method that we created in LoginPage and
-        loginPage.login ( userName, passwod );
+        loginPage.login ( userName, passwoRd );
 
         //This is an explicit wait
         // it waits until title is Dahboard
@@ -34,6 +35,7 @@ public class LoginTests extends TestBase {
         wait.until ( ExpectedConditions.titleIs ( "Dashboard" ) );
 
         Assert.assertEquals ( Driver.get ().getTitle (), "Dashboard" );
+        extentTest.pass ( "veried that page title 'Dashboad' was displayed " );
 
     }
 
