@@ -42,7 +42,7 @@ public class BasePage {
 
     }
     public void waitUntilLoaderMaskDisappear() {
-        WebDriverWait wait = new WebDriverWait(Driver.get(), 20);
+        WebDriverWait wait = new WebDriverWait(Driver.get(), 30);
         try {
             wait.until( ExpectedConditions.invisibilityOf ( loadermask ) );
 
@@ -72,7 +72,7 @@ public class BasePage {
         String menuLocator = "//*[normalize-space()='" + menu + "' and @class='title title-level-1']";
         String submenuLocator = "//*[normalize-space()='" + submenu + "' and @class='title title-level-2']";
 
-        WebDriverWait wait = new WebDriverWait ( Driver.get (), 20 );
+        WebDriverWait wait = new WebDriverWait ( Driver.get (), 30 );
         wait.until ( ExpectedConditions.presenceOfElementLocated ( By.xpath ( menuLocator ) ) );
 
         WebElement menuElement = Driver.get ().findElement ( By.xpath ( menuLocator ) );
