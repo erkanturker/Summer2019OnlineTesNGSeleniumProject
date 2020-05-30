@@ -8,7 +8,6 @@ import pages.LoginPage;
 import tests.TestBase;
 import utils.ConfigurationReader;
 import utils.Driver;
-
 //We write extends TestBase to inherit @before and @after method
 //This class will be dedicated to tests related to Login Page
 //we dont have to find elements here

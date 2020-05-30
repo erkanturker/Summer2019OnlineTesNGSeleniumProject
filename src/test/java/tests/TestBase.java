@@ -24,52 +24,70 @@ public abstract class TestBase {
  * ExtentHtmlReporter html = new ExtentHtmlReporter("Extent.html");
  * ExtentXReporter extentx = new ExtentXReporter("localhost");
      */
-    protected ExtentReports extentReports;
-      //The ExtentSparkReporter creates a rich standalone spark file. It allows
-    protected ExtentSparkReporter extentHtmlReporter;
+    protected static ExtentReports extentReports;
+    //The ExtentSparkReporter creates a rich standalone spark file. It allows
+    protected static ExtentSparkReporter extentHtmlReporter;
     //Defines a test. You can add logs, snapshots, assign author and categories to a test and its children.
-    protected ExtentTest extentTest;
+    protected static ExtentTest extentTest;
 
+    // <parameter name="test" value="regression"></parameter>
     @BeforeTest
-    public void BeforeTest(){
-        String filepathHTML = System.getProperty ( "user.dir" )+"/test-output/report.html";
+    @Parameters({"test", "env_url"})
+    public void BeforeTest (@Optional String test, @Optional String env_url) {
+        //location of report
+        //it is gonna be next to target folder test-output folder
+        String reportName = "report";
+        if (test != null) {
+            reportName = test;
+        }
+
+        String filepathHTML = System.getProperty ( "user.dir" ) + "/test-output/" + reportName + ".html";
         extentReports = new ExtentReports ();
         extentHtmlReporter = new ExtentSparkReporter ( filepathHTML );
         extentReports.attachReporter ( extentHtmlReporter );
         extentHtmlReporter.config ().setReportName ( "Vyrack Test Result" );
         //System information
-        extentReports.setSystemInfo ( "Environment","QA1" );
-        extentReports.setSystemInfo ( "browser",ConfigurationReader.getProperty ( "browser" ) );
-        extentReports.setSystemInfo ( "OS",System.getProperty ( "os.name" ) );
+
+        String env= ConfigurationReader.getProperty ( "url" );
+        if(env_url!=null){
+            env=env_url;
+        }
+        extentReports.setSystemInfo ( "Environment",env );
+        extentReports.setSystemInfo ( "browser", ConfigurationReader.getProperty ( "browser" ) );
+        extentReports.setSystemInfo ( "OS", System.getProperty ( "os.name" ) );
 
 
     }
-@AfterTest
-    public void afterTest(){
-   //  Writes test information from the started reporters to their output view
+
+    @AfterTest
+    public void afterTest ( ) {
+        //  Writes test information from the started reporters to their output view
         extentReports.flush ();
     }
 
     @BeforeMethod
-    public void setup ( ) {
+    @Parameters("env_url")
+    public void setup (@Optional String env_url) {
         String url = ConfigurationReader.getProperty ( "url" );
+        if (env_url != null) {
+            url = env_url;
+        }
         Driver.get ().get ( url );
     }
-// * This class describes the result of a test.
+
+    // * This class describes the result of a test.
     @AfterMethod
     public void tearDown (ITestResult result) {
-        if(result.getStatus ()==ITestResult.FAILURE)
-        {
+        if (result.getStatus () == ITestResult.FAILURE) {
             extentTest.fail ( result.getName () );
-            extentTest.fail(result.getThrowable ());
+            extentTest.fail ( result.getThrowable () );
             try {
-                extentTest.addScreenCaptureFromPath ( BrowserUtils.getScreenShot ( result.getName ()) );
+                extentTest.addScreenCaptureFromPath ( BrowserUtils.getScreenShot ( result.getName () ) );
             } catch (IOException e) {
                 e.printStackTrace ();
             }
-        }
-        else if (result.getStatus ()==ITestResult.SKIP){
-            extentTest.skip ( "Test case was Skipped"+result.getName () );
+        } else if (result.getStatus () == ITestResult.SKIP) {
+            extentTest.skip ( "Test case was Skipped" + result.getName () );
         }
         Driver.close ();
     }

@@ -18,6 +18,9 @@ public class SmokeTest extends TestBase {
         String passwoRd = ConfigurationReader.getProperty ( "password" );
         loginPage.login ( userName, passwoRd );
         loginPage.waitUntilLoaderMaskDisappear ();
+        BrowserUtils.wait ( 2 );
+        loginPage.navigateTo ( menuName,subMenuName );
+        BrowserUtils.wait ( 2 );
         Assert.assertEquals ( pageSubTitle,loginPage.getSubtitle () );
         extentTest.pass ( "Verified That page subtitle " + pageSubTitle + " Displayed" );
 
@@ -30,7 +33,7 @@ public class SmokeTest extends TestBase {
                 {"Dashboards", "Dashboard", "Dashboard"},
                 {"Dashboards", "Manage Dashboards", "All Manage Dashboards"},
                 {"Fleet", "Vehicles", "All Cars"},
-                {"Accounts", "Accounts", "All Accounts"}
+                {"Customers", "Accounts", "All Accounts"}
         };
 
     }

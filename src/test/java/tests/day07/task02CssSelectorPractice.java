@@ -19,6 +19,7 @@ public class task02CssSelectorPractice {
         //[class='btn btn-primary'] we can use with braclet as well
         //.meansclassname
         //#means id
+
         List<WebElement>buttonlists = driver.findElements ( By.cssSelector(".btn.btn-primary") );
         //loop through all the buttons
         for (WebElement elementbutton :buttonlists){

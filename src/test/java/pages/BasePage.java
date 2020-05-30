@@ -76,11 +76,11 @@ public class BasePage {
         wait.until ( ExpectedConditions.presenceOfElementLocated ( By.xpath ( menuLocator ) ) );
 
         WebElement menuElement = Driver.get ().findElement ( By.xpath ( menuLocator ) );
-        waitUntilLoaderMaskDisappear ();
         wait.until ( ExpectedConditions.visibilityOf ( menuElement ) );
         wait.until ( ExpectedConditions.elementToBeClickable ( menuElement ) );
         menuElement.click ();
 
+        waitUntilLoaderMaskDisappear ();
         WebElement subMenuElement = Driver.get ().findElement ( By.xpath ( submenuLocator ) );
         wait.until ( ExpectedConditions.visibilityOf ( subMenuElement ) );
         wait.until ( ExpectedConditions.elementToBeClickable ( subMenuElement ) );
