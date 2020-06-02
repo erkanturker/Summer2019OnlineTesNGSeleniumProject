@@ -41,17 +41,18 @@ public class BasePage {
         PageFactory.initElements ( Driver.get (), this );
 
     }
-    public void waitUntilLoaderMaskDisappear() {
-        WebDriverWait wait = new WebDriverWait(Driver.get(), 30);
+
+    public void waitUntilLoaderMaskDisappear ( ) {
+        WebDriverWait wait = new WebDriverWait ( Driver.get (), 15 );
         try {
-            wait.until( ExpectedConditions.invisibilityOf ( loadermask ) );
+            wait.until ( ExpectedConditions.invisibilityOf ( loadermask ) );
 
         } catch (NoSuchElementException e) {
-            System.out.println("Loader Mask not found!");
-            e.printStackTrace();
+            System.out.println ( "Loader Mask not found!" );
+            e.printStackTrace ();
 
         } catch (WebDriverException e) {
-            e.printStackTrace();
+            e.printStackTrace ();
         }
     }
     /*
@@ -78,16 +79,18 @@ public class BasePage {
         WebElement menuElement = Driver.get ().findElement ( By.xpath ( menuLocator ) );
         wait.until ( ExpectedConditions.visibilityOf ( menuElement ) );
         wait.until ( ExpectedConditions.elementToBeClickable ( menuElement ) );
-        menuElement.click ();
 
         waitUntilLoaderMaskDisappear ();
+        BrowserUtils.clickWithWait ( menuElement );// if the click is not working well
+        menuElement.click ();//submodule should be wisible
+
         WebElement subMenuElement = Driver.get ().findElement ( By.xpath ( submenuLocator ) );
         wait.until ( ExpectedConditions.visibilityOf ( subMenuElement ) );
         wait.until ( ExpectedConditions.elementToBeClickable ( subMenuElement ) );
-
-
         subMenuElement.click ();
-        waitUntilLoaderMaskDisappear ();
+
+        //it waits until page is loaded and ajax calss are done
+        BrowserUtils.waitForPageLoad ( 5 );
     }
     /*
     Waits until loader mask (Loading bar,spinning wheel) disapears

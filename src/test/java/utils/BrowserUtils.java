@@ -3,15 +3,16 @@ package utils;
 import freemarker.template.SimpleDate;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.function.Function;
 
 public class BrowserUtils {
     public static void wait (int seconds) {
@@ -70,8 +71,8 @@ public class BrowserUtils {
 
     public static void main (String[] args) {
         System.out.println ( System.getProperty ( "user.dir" ) );
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
-        System.out.println (dateFormat.format ( new Date (  ) )); //it will create an object from Date class (current date) format as we declerad above
+        SimpleDateFormat dateFormat = new SimpleDateFormat ( "yyyy-mm-dd hh:mm" );
+        System.out.println ( dateFormat.format ( new Date () ) ); //it will create an object from Date class (current date) format as we declerad above
 
     }
 
@@ -106,8 +107,49 @@ public class BrowserUtils {
 
         return target;
     }
+    /*
+    wait 15 seconds with polling interval of 200 milliseoncds then click
+    @param webelement of element
 
+     */
 
+    public static void clickWithWait (WebElement webElement) {
+        Wait wait = new FluentWait<> ( Driver.get () )
+                .withTimeout ( Duration.ofSeconds ( 16 ) )
+                .pollingEvery ( Duration.ofMillis ( 200 ) )
+                .ignoring ( NoSuchElementException.class )
+                .ignoring ( ElementNotVisibleException.class )
+                .ignoring ( ElementClickInterceptedException.class )
+                .ignoring ( StaleElementReferenceException.class )
+                .ignoring ( WebDriverException.class );
+
+        WebElement element = (WebElement) wait.until ( (Function< WebDriver, WebElement >) driver -> webElement );
+
+        try {
+            element.click ();
+        } catch (WebDriverException e) {
+            System.out.println ( e.getMessage () );
+        }
+        try {
+            Thread.sleep ( 1000 );
+        } catch (InterruptedException e) {
+            e.printStackTrace ();
+        }
+        element.click ();
+    }
+
+    public static void waitForPageLoad (long timeOutInSeconds) {
+        ExpectedCondition< Boolean > expectation = driver -> ((JavascriptExecutor) driver).executeScript ( "return document.readyState" ).equals ( "complete" );
+        ExpectedCondition< Boolean > expectation2 = driver -> ((JavascriptExecutor) driver).executeScript ( "return jQuery.active==0" ).equals ( true );
+        try {
+            WebDriverWait wait = new WebDriverWait ( Driver.get () ,timeOutInSeconds);
+            wait.until ( expectation );
+            wait.until ( expectation2 );
+        }catch (Throwable e){
+            e.printStackTrace();
+        }
+
+    }
 
 
 }
