@@ -74,13 +74,14 @@ public class ExcelUtil {
         }
         return data;
     }
-
+    //This craating list of map
+    //Each eletn in the arraylist is Haspmap object
+    // Colunm name Key and value is under the names Username=user1 Username=user2 Username=user3
     public List< Map< String, String > > getDataList ( ) {
         //get all columns
         List< String > columuns = getColumnsNames ();
         //this will be returned
         List< Map< String, String > > data = new ArrayList<> ();
-
         for (int i = 0; i < rowCount (); i++) {
             //get each row
             Row row = workSheet.getRow ( i );

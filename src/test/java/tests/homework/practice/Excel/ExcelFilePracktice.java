@@ -1,4 +1,4 @@
-package tests.homework.practice;
+package tests.homework.practice.Excel;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -46,6 +46,8 @@ public class ExcelFilePracktice {
         }
         System.out.println (map);
         System.out.println (map.get ( "TURKEY" ));
+        Row row = sheet.getRow ( 0 );
+        System.out.println (row.getCell ( 0 ));
 
     }
 }
