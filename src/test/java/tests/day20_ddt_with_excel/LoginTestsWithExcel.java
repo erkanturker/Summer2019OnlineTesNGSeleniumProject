@@ -11,6 +11,8 @@ import utils.Driver;
 import utils.ExcelUtil;
 import java.util.Map;
 
+
+
 public class LoginTestsWithExcel extends TestBase {
     @DataProvider(name = "credentials")
     public static Object[][] credentials ( ) {
@@ -33,7 +35,7 @@ public class LoginTestsWithExcel extends TestBase {
 
     }
 
-    /*
+
     public static void main (String[] args) {
         ExcelUtil qa2 = new ExcelUtil ( "vytrack_testusers.xlsx","QA2-short" );
         System.out.println ("row count: "+qa2.rowCount ());
@@ -49,7 +51,6 @@ public class LoginTestsWithExcel extends TestBase {
         }
     }
 
-     */
     //is a test data provider
     //as many sets of data it returns
     //as many times excatly same test will run

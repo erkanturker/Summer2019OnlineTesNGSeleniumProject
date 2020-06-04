@@ -2,6 +2,7 @@ package utils;
 
 import org.apache.poi.ss.usermodel.*;
 import org.testng.Assert;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -79,13 +80,15 @@ public class ExcelUtil {
         List< String > columuns = getColumnsNames ();
         //this will be returned
         List< Map< String, String > > data = new ArrayList<> ();
+
         for (int i = 0; i < rowCount (); i++) {
             //get each row
             Row row = workSheet.getRow ( i );
 
             //create a map of the row using the colum and value
             //column map key, cell value --> MAp bvalue
-            Map< String, String > rowMap = new HashMap< String, String > ();
+            Map< String, String > rowMap = new HashMap<> ();
+
             for (Cell cell : row) {
                 int columnIndex = cell.getColumnIndex ();
                 rowMap.put ( columuns.get ( columnIndex ), cell.toString () );
@@ -125,9 +128,10 @@ public class ExcelUtil {
         }
 
     }
-    public void setCellData(String value,String columnName,int row){
-        int column=getColumnsNames ().indexOf ( columnName );
-        setDataCell ( value, row,column);
+
+    public void setCellData (String value, String columnName, int row) {
+        int column = getColumnsNames ().indexOf ( columnName );
+        setDataCell ( value, row, column );
     }
 }
 
