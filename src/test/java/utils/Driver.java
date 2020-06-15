@@ -3,6 +3,7 @@ package utils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Driver {
@@ -13,6 +14,7 @@ public class Driver {
     }
 
     public static WebDriver get ( ) {
+        ChromeOptions chromeOptions = new ChromeOptions ();
         //create webdriver if it isnot started
         if (driver == null) {
             //Thats way our method know hot to call which browser // if we change the Configuration file with firefox it will open firefix
@@ -20,7 +22,7 @@ public class Driver {
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver ().setup ();
-                    driver = new ChromeDriver ();
+                    driver = new ChromeDriver (chromeOptions);
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver ().setup ();
