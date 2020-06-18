@@ -3,8 +3,10 @@ package tests.homework.homework02;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import utils.BrowserUtils;
 import utils.Driver;
 
 public class TestCases1to5 {
@@ -58,6 +60,33 @@ public class TestCases1to5 {
         String expectedResult = "The last name must be more than 2 and less than 64 characters long";
         Assert.assertEquals ( actualResult, expectedResult );
 
+    }
+
+    @Test
+    public void test5 ( ) {
+        Driver.get ().findElement ( By.cssSelector ( "[name='firstname']" ) ).sendKeys ( "Joh" );
+        Driver.get ().findElement ( By.cssSelector ( "[name='lastname']" ) ).sendKeys ( "Drea" );
+        Driver.get ().findElement ( By.cssSelector ( "[name='username']" ) ).sendKeys ( "johndrea" );
+        Driver.get ().findElement ( By.cssSelector ( "[name='email']" ) ).sendKeys ( "johndrea@gmail.com" );
+        Driver.get ().findElement ( By.cssSelector ( "[name='password']" ) ).sendKeys ( "12345678990" );
+        Driver.get ().findElement ( By.cssSelector ( "[name='phone']" ) ).sendKeys ( "571-000-0000" );
+        Driver.get ().findElement ( By.cssSelector ( "input[type='radio' ][ value='male']" ) ).click ();
+        Driver.get ().findElement ( By.cssSelector ( "[name='birthday']" ) ).sendKeys ( "12/12/1990" );
+
+        Select select = new Select ( Driver.get ().findElement ( By.cssSelector ( "select[name='department']" ) ) );
+        Select select1 = new Select ( Driver.get ().findElement ( By.cssSelector ( "select[name='job_title']" ) ) );
+        select.selectByValue ( "DE" );
+        select1.selectByVisibleText ( "SDET" );
+        //check buttons
+        for (int i = 1; i <= 3; i++) {
+            Driver.get ().findElement ( By.cssSelector ( "input[id='inlineCheckbox" + i + "']" ) ).click ();
+        }
+        Driver.get ().findElement ( By.cssSelector ( "button[id='wooden_spoon']" ) ).click ();
+
+
+        String actualREsult = Driver.get ().findElement ( By.cssSelector ( "div[class='alert alert-success']>p" ) ).getText ();
+        String expectedResult="You've successfully completed registration!";
+        Assert.assertEquals ( actualREsult,expectedResult );
     }
 
 
