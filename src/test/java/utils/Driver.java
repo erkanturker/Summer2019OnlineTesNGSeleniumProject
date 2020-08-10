@@ -22,7 +22,7 @@ public class Driver {
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver ().setup ();
-                    driver = new ChromeDriver (chromeOptions);
+                    driver = new ChromeDriver ();
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver ().setup ();

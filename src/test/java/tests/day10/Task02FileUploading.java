@@ -20,7 +20,9 @@ public class Task02FileUploading {
     @Test
     public void test1(){
         driver.findElement ( By.linkText ("File Upload") ).click ();
-        driver.findElement ( By.id ( "file-upload" ) ).sendKeys ( "/Users/turker/Desktop/classnotes1" );
+        BrowserUtils.wait ( 4 );
+        driver.findElement ( By.id ( "file-upload" ) ).sendKeys ( "/Users/turker/Desktop/ClassNotes/SQL/day01SqlIntro/Day01 Class Note.txt" );
+        BrowserUtils.wait ( 4 );
         driver.findElement ( By.id ("file-submit"  ) ).click ();
         //make sure we uploaded file or not
         BrowserUtils.wait ( 3 );
